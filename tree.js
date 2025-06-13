@@ -518,7 +518,7 @@ function TreeNode(userObject, options) {
         }
 
         if (typeof callback !== 'function') {
-            throw new Error("Argument 2 must be of type function");
+            throw new Error("Parameter 2 must be of type function/callback");
         }
 
         events[ev] = callback;
