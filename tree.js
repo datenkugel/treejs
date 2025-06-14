@@ -112,6 +112,10 @@ function TreeView(root, container, options) {
         return options;
     }
 
+    this.setMultiSelect = function(active) {
+        this.changeOption("multiSelect", Boolean(active));
+    }
+
     // TODO: set selected key: up down; expand right; collapse left; enter: open;
     this.getSelectedNodes = function () {
         return TreeUtil.getSelectedNodesForNode(root);
@@ -181,7 +185,7 @@ function TreeView(root, container, options) {
                 }
 
 
-                if (e.ctrlKey === true) {
+                if (e.ctrlKey === true && TreeUtil.getProperty(self.getOptions(), "multiSelect", true)) {
                     node_cur.toggleSelected();
                     self.reload();
                 } else {

@@ -29,13 +29,19 @@
 		}
 
 		function toggleCustomIcon(n){
-			if(n == true){
+			if(n === true){
 				root.changeOption("icon", '<i class="fas fa-code-branch"></i>');
 			}else{
 				root.changeOption("icon", undefined);
 			}
 
 			view.reload();
+		}
+
+		__multi = true;
+		function toggleMultiSelect() {
+			__multi = !__multi;
+			view.setMultiSelect(__multi);
 		}
 	</script>
 
@@ -132,6 +138,7 @@
 			<a href="#" class="btn" onclick="root.toggleSelected(); view.reload();">Toggle selected</a>
 			<a href="#" class="btn" onclick="n3.toggleEnabled(); view.reload();">Toggle enabled</a>
 			<a href="#" class="btn" onclick="n11.changeOption('forceParent', !TreeUtil.getProperty(n11.getOptions(), 'forceParent', false)); view.reload();">Toggle force parent</a>
+			<a href="#" class="btn" onclick="toggleMultiSelect()">Toggle Multi Select</a>
 			<br>
 			<a href="#" class="btn" onclick="changeIcons(this.innerHTML == 'Font-Awesome icons'); if(this.innerHTML == 'Font-Awesome icons') this.innerHTML = 'Default icons'; else this.innerHTML = 'Font-Awesome icons'">Font-Awesome icons</a>
 			<a href="#" class="btn" onclick="toggleCustomIcon(TreeUtil.getProperty(root.getOptions(), 'icon', true));">Change custom icon</a>
@@ -143,17 +150,17 @@
 	</main>
 
 	<script>
-		var count = 1;
+		let count = 1;
 
-		var root = new TreeNode("root");
-			var n1 = new TreeNode("1");
-				var n11 = new TreeNode("1.1");
-			var n2 = new TreeNode("2");
-			var n3 = new TreeNode("3");
-				var n31 = new TreeNode("3.1");
-				var n32 = new TreeNode("3.2");
-					var n321 = new TreeNode("3.2.1");
-				var n33 = new TreeNode("3.3");
+		const root = new TreeNode("root");
+			const n1 = new TreeNode("1");
+				const n11 = new TreeNode("1.1");
+			const n2 = new TreeNode("2");
+			const n3 = new TreeNode("3");
+				const n31 = new TreeNode("3.1");
+				const n32 = new TreeNode("3.2");
+					const n321 = new TreeNode("3.2.1");
+			const n33 = new TreeNode("3.3");
 
 		root.addChild(n1);
 		root.addChild(n2);
@@ -169,7 +176,7 @@
 
 		n32.addChild(n321);
 
-		var view = new TreeView(root, "#container");
+		const view = new TreeView(root, "#container");
 	</script>
 </body>
 </html>
