@@ -177,7 +177,7 @@ TreeUtil.expandNode(node);           // Expands the node and all it's children a
 TreeUtil.collapseNode(node);         // Collapses the node and all it's children and theirs etc. (TreeNode)
 
 TreeUtil.getSelectedNodesForNode(n); // Returns all selected nodes inside of this node (and itself,
-                                     // if its selected) (TreeNode)
+                                     // if it's selected) (TreeNode)
 ```
 
 ### TreeConfig
@@ -192,7 +192,7 @@ TreeConfig.context_menu              // A function that is executed when a conte
 ```
 
 ### Events
-It is possible to attach a event to a TreeNode: ``node.on(event, callback);``
+It is possible to attach an event to a TreeNode: ``node.on(event, callback);``
 
 | Event           | Callback-Parameter(s)                | Definition                                                               | Restriction   |
 |-----------------|--------------------------------------|--------------------------------------------------------------------------|---------------|
