@@ -118,7 +118,7 @@ function TreeView(root, container, options) {
 
     this.setSelectedNodes = function (nodes) {
         nodes.forEach((n) => {
-            if (typeof n !== "object") {
+            if (!(n instanceof TreeNode)) {
                 throw new Error("Parameter 1 must be array containing only TreeNode objects");
             }
         });
@@ -558,6 +558,31 @@ function TreeNode(userObject, options) {
         return false;
     }
 
+    this.searchNode = function (key, needle) {
+        let ret;
+        if (typeof key !== "string") {
+            throw new Error("Parameter 1 must be of type string");
+        }
+        if (typeof needle === "object" || typeof needle === "function") {
+            throw new Error("Parameter 2 must be a scalar (string, int, bool, ...)");
+        }
+        this.getChildren().forEach((n) => {
+            let u = typeof n.getUserObject() === "string" ? {} : n.getUserObject();
+            let ov = TreeUtil.getProperty(n.getOptions(), key, null);
+            if (String(u[key]) === String(needle)) {
+                ret = n;
+            } else if (String(ov) === String(needle)) {
+                ret = n;
+            } else {
+                let r = n.searchNode(key, needle)
+                if (r) {
+                    ret = r;
+                }
+            }
+        });
+        return ret;
+    }
+
     this.toString = function () {
         if (typeof userObject === "string") {
             return userObject;
@@ -686,6 +711,65 @@ const TreeUtil = {
         });
 
         return ret;
+    },
+
+    createTreeByFlatList: function (list, container, optId, optParentId) {
+        if (typeof list !== "object") {
+            throw new Error("Parameter 1 must be an array");
+        }
+
+        let rootCount = 0;
+        list.forEach((e) => {
+            if (typeof e !== "object") {
+                throw new Error("Parameter 1 must be an array consisting of objects");
+            }
+            if (typeof e.toString !== "function") {
+                throw new Error("Parameter 1 must be an array consisting of objects that have the toString() method");
+            }
+            if (typeof e[optId] === "undefined") {
+                throw new Error("Parameter 1 must be an array consisting of objects that have the property " + optId);
+            }
+            if (typeof e[optParentId] === "undefined") {
+                throw new Error("Parameter 1 must be an array consisting of objects that have the property " + optParentId);
+            }
+            if (e[optParentId] === null || e[optParentId] === "") {
+                rootCount++;
+            }
+        });
+        if (rootCount !== 1) {
+            throw new Error("Parameter 1 must be an array consisting of objects, which only one has no parent");
+        }
+
+        if (typeof optId !== "string") {
+            throw new Error("Parameter 3 must be a string");
+        }
+
+        if (typeof optParentId !== "string") {
+            throw new Error("Parameter 4 must be a string");
+        }
+
+        // the magic begins
+        let root;
+        let nodes = {};
+        let order = []; // guarantee order
+        list.forEach((e) => {
+            if (typeof nodes[e[optId]] !== "undefined") {
+                throw new Error("Parameter 1 must be an array consisting of objects that have the property '" + optId + "' whose value only exists once!");
+            }
+            order.push(e[optId]);
+            let o = typeof e.options !== "undefined" ? e.options : {};
+            nodes[e[optId]] = new TreeNode(e, o);
+        });
+        order.forEach((k) => {
+            let n = nodes[k];
+            let o = n.getUserObject();
+            if (o[optParentId] === null || o[optParentId] === "") {
+                root = n;
+            } else {
+                nodes[o[optParentId]].addChild(n);
+            }
+        });
+        return new TreeView(root, container);
     }
 };
 
