@@ -260,4 +260,4 @@ var view = new TreeView(root, "#container");
 
 ### Output:
 
-![treeJs example](demo/example.jpg)
+![treeJs example](demo/example.png)
