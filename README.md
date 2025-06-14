@@ -153,6 +153,7 @@ new TreePath(root, node);
 ```javascript
 path.setPath(root, node);            // Generates the path between root and node (TreeNode, TreeNode)
 path.getPath();                      // Returns the generated path as a array
+path.setSeparator(string);           // Sets the separator used by toString()
 
 path.toString();                     // Returns the path as a string (nodes joined with a ' - ')
 ```

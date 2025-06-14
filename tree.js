@@ -557,7 +557,6 @@ function TreePath(root, node) {
 
     this.setPath = function (root, node) {
         nodes = [];
-        this.setSeparator(" - ");
 
         while (typeof node !== "undefined" && !node.equals(root)) {
             nodes.push(node);
