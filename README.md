@@ -1,6 +1,6 @@
 # TreeJS
 
-TreeJS is a simple JavaScript library, to display a TreeView like in the windows filebrowser.
+TreeJS is a simple JavaScript library to display a TreeView like in the windows filebrowser.
 It implements partially the Java Swing TreeModel etc.
 
 **Demo:** https://m-thalmann.github.io/treejs/demo/
@@ -82,13 +82,14 @@ tree.setOptions(options);            // Resets the options (object)
 tree.changeOption(option, value);    // Changes one option (string, object)
 tree.getOptions();                   // Returns the options
 
+tree.setSelectedNodes([n1,n2,...]);  // Sets the selected nodes in the tree
 tree.getSelectedNodes();             // Returns all selected nodes in the tree
 tree.reload();                       // Reloads/Renders the tree inside of the container
 ```
 
 ### TreeNode
-It represents a node inside of a tree. You can append children to it and specify a userobject, which is used to display text on a node. This object can be a string but can also be a other object, where the toString() function is used to display the text.
-#### Instanciating
+It represents a node inside the tree. You can append children to it and specify the userobject, which is used to display text on a node. This object can be a string but can also be another object, where the toString() function is used to display the text.
+#### Instantiating
 ```javascript
 new TreeNode(userobject, options);
 ```
@@ -153,6 +154,7 @@ new TreePath(root, node);
 ```javascript
 path.setPath(root, node);            // Generates the path between root and node (TreeNode, TreeNode)
 path.getPath();                      // Returns the generated path as a array
+path.setSeparator(string);           // Sets the separator used by toString()
 
 path.toString();                     // Returns the path as a string (nodes joined with a ' - ')
 ```
@@ -175,8 +177,8 @@ TreeUtil.getProperty(opt, o, def);   // Returns the value of 'o' in the array/ob
 TreeUtil.expandNode(node);           // Expands the node and all it's children and theirs etc. (TreeNode)
 TreeUtil.collapseNode(node);         // Collapses the node and all it's children and theirs etc. (TreeNode)
 
-TreeUtil.getSelectedNodesForNode(n); // Returns all selected nodes inside of this node (and it's self,
-                                     // if its selected) (TreeNode)
+TreeUtil.getSelectedNodesForNode(n); // Returns all selected nodes inside of this node (and itself,
+                                     // if it's selected) (TreeNode)
 ```
 
 ### TreeConfig
@@ -191,56 +193,56 @@ TreeConfig.context_menu              // A function that is executed when a conte
 ```
 
 ### Events
-It is possible to attach a event to a TreeNode: ``node.on(event, callback);``
+It is possible to attach an event to a TreeNode: ``node.on(event, callback);``
 
-| Event | Callback-Parameter(s) | Definition | Restriction |
+| Event           | Callback-Parameter(s)                | Definition                                                               | Restriction   |
 |-----------------|--------------------------------------|--------------------------------------------------------------------------|---------------|
-| click | e[click_event], node[TreeNode] | Is triggered when the node is clicked | - |
-| expand | node[TreeNode] | Is triggered when the node is expanded | Not-leaf only |
-| collapse | node[TreeNode] | Is triggered when the node is collapsed | Not-leaf only |
-| toggle_expanded | node[TreeNode] | Is triggered when the node is either expanded or collapsed | Not-leaf only |
-| open | node[TreeNode] | Is triggered when the open()-Function is executed or the leaf is clicked | Leaf only |
-| enable | node[TreeNode] | Is triggered when the node is enabled | - |
-| disable | node[TreeNode] | Is triggered when the node is disabled | - |
-| toggle_enabled | node[TreeNode] | Is triggered when the node is either enabled or disabled | - |
-| select | node[TreeNode] | Is triggered when the node is selected | - |
-| deselect | node[TreeNode] | Is triggered when the node is deselected | - |
-| toggle_selected | node[TreeNode] | Is triggered when the node is either selected or deselected | - |
-| contextmenu | e[contextmenu_event], node[TreeNode] | Is triggered when a contextmenu is opened on a node | - |
+| click           | e[click_event], node[TreeNode]       | Is triggered when the node is clicked                                    | -             |
+| expand          | node[TreeNode]                       | Is triggered when the node is expanded                                   | Not-leaf only |
+| collapse        | node[TreeNode]                       | Is triggered when the node is collapsed                                  | Not-leaf only |
+| toggle_expanded | node[TreeNode]                       | Is triggered when the node is either expanded or collapsed               | Not-leaf only |
+| open            | node[TreeNode]                       | Is triggered when the open()-Function is executed or the leaf is clicked | Leaf only     |
+| enable          | node[TreeNode]                       | Is triggered when the node is enabled                                    | -             |
+| disable         | node[TreeNode]                       | Is triggered when the node is disabled                                   | -             |
+| toggle_enabled  | node[TreeNode]                       | Is triggered when the node is either enabled or disabled                 | -             |
+| select          | node[TreeNode]                       | Is triggered when the node is selected                                   | -             |
+| deselect        | node[TreeNode]                       | Is triggered when the node is deselected                                 | -             |
+| toggle_selected | node[TreeNode]                       | Is triggered when the node is either selected or deselected              | -             |
+| contextmenu     | e[contextmenu_event], node[TreeNode] | Is triggered when a contextmenu is opened on a node                      | -             |
 
 ### Options
 #### for TreeView
 
-| Option | Values | Definition |
-|-------------|----------|-----------------------------------------------------------------------------|
-| leaf_icon | [string] | Sets the leaf-icon for this tree to the string (can be overwritten by node) |
-| parent_icon | [string] | Sets the node-icon for this tree to the string (can be overwritten by node) |
-| show_root | [boolean] | Sets whether the root node is shown or not |
+| Option      | Values    | Definition                                                                  |
+|-------------|-----------|-----------------------------------------------------------------------------|
+| leaf_icon   | [string]  | Sets the leaf-icon for this tree to the string (can be overwritten by node) |
+| parent_icon | [string]  | Sets the node-icon for this tree to the string (can be overwritten by node) |
+| show_root   | [boolean] | Sets whether the root node is shown or not                                  |
 
 #### for TreeNode
 
-| Option | Values | Definition |
-|----------------|------------|----------------------------------------------------------------|
-| expanded | [boolean] | On creation, the node will have the expanded value set to this |
-| enabled | [boolean] | On creation, the node will have the enabled value set to this |
-| selected | [boolean] | On creation, the node will have the selected value set to this |
-| icon | [string] | Sets the icon for this node to the string |
-| allowsChildren | [boolean] | Sets if there can be added new children to this node |
-| forceParent | [boolean] | This node will be displayed as parent, even if it is empty |
+| Option         | Values    | Definition                                                     |
+|----------------|-----------|----------------------------------------------------------------|
+| expanded       | [boolean] | On creation, the node will have the expanded value set to this |
+| enabled        | [boolean] | On creation, the node will have the enabled value set to this  |
+| selected       | [boolean] | On creation, the node will have the selected value set to this |
+| icon           | [string]  | Sets the icon for this node to the string                      |
+| allowsChildren | [boolean] | Sets if there can be added new children to this node           |
+| forceParent    | [boolean] | This node will be displayed as parent, even if it is empty     |
 
 ## Example
 ### Code:
 ```javascript
-var root = new TreeNode("root");
-			var n1 = new TreeNode("1");
-				var n11 = new TreeNode("1.1");
-			var n2 = new TreeNode("2");
-			var n3 = new TreeNode("3");
-				var n31 = new TreeNode("3.1");
-				var n32 = new TreeNode("3.2");
-					var n321 = new TreeNode("3.2.1");
-				var n33 = new TreeNode("3.3");
-        
+const root = new TreeNode("root");
+  const n1 = new TreeNode("1");
+    const n11 = new TreeNode("1.1");
+  const n2 = new TreeNode("2");
+  const n3 = new TreeNode("3");
+    const n31 = new TreeNode("3.1");
+    const n32 = new TreeNode("3.2");
+      const n321 = new TreeNode("3.2.1");
+    const n33 = new TreeNode("3.3");
+
 root.addChild(n1);
 root.addChild(n2);
 root.addChild(n3);
@@ -251,13 +253,13 @@ n3.addChild(n31);
 n3.addChild(n32);
 n3.addChild(n33);
 
-n32.addChild(n321);
-
 n3.setEnabled(false);
 
-var view = new TreeView(root, "#container");
+n32.addChild(n321);
+
+const view = new TreeView(root, "#container");
 ```
 
 ### Output:
 
-![treeJs example](demo/example.jpg)
+![treeJs example](demo/example.png)
