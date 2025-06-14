@@ -83,8 +83,7 @@
 		#container{
 			width: 200px;
 			border: 1px solid #ccc;
-			margin: 0 auto;
-			margin-bottom: 1em;
+			margin: 0 auto 1em;
 		}
 
 		.btn{
@@ -140,7 +139,7 @@
 			<a href="#" class="btn" onclick="n11.changeOption('forceParent', !TreeUtil.getProperty(n11.getOptions(), 'forceParent', false)); view.reload();">Toggle force parent</a>
 			<a href="#" class="btn" onclick="toggleMultiSelect()">Toggle Multi Select</a>
 			<br>
-			<a href="#" class="btn" onclick="changeIcons(this.innerHTML == 'Font-Awesome icons'); if(this.innerHTML == 'Font-Awesome icons') this.innerHTML = 'Default icons'; else this.innerHTML = 'Font-Awesome icons'">Font-Awesome icons</a>
+			<a href="#" class="btn" onclick="changeIcons(this.innerHTML === 'Font-Awesome icons'); if(this.innerHTML === 'Font-Awesome icons') this.innerHTML = 'Default icons'; else this.innerHTML = 'Font-Awesome icons'">Font-Awesome icons</a>
 			<a href="#" class="btn" onclick="toggleCustomIcon(TreeUtil.getProperty(root.getOptions(), 'icon', true));">Change custom icon</a>
 		</div>
 
