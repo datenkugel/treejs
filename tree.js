@@ -116,6 +116,22 @@ function TreeView(root, container, options) {
         this.changeOption("multiSelect", Boolean(active));
     }
 
+    this.setSelectedNodes = function (nodes) {
+        nodes.forEach((n) => {
+            if (typeof n !== "object") {
+                throw new Error("Parameter 1 must be array containing only TreeNode objects");
+            }
+        });
+        this.getSelectedNodes().forEach((n) => n.setSelected(false));
+        nodes.forEach((n) => {
+            n.setSelected(true);
+            let pathNodes = new TreePath(this.getRoot(), n);
+            pathNodes.getPath().forEach((e) => {
+                e.setExpanded(true);
+            });
+        });
+    }
+
     // TODO: set selected key: up down; expand right; collapse left; enter: open;
     this.getSelectedNodes = function () {
         return TreeUtil.getSelectedNodesForNode(root);
