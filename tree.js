@@ -112,7 +112,7 @@ function TreeView(root, container, options) {
         return options;
     }
 
-    this.setMultiSelect = function(active) {
+    this.setMultiSelect = function (active) {
         this.changeOption("multiSelect", Boolean(active));
     }
 
@@ -553,9 +553,11 @@ function TreeNode(userObject, options) {
 
 function TreePath(root, node) {
     let nodes = [];
+    let separator = " - ";
 
     this.setPath = function (root, node) {
         nodes = [];
+        this.setSeparator(" - ");
 
         while (typeof node !== "undefined" && !node.equals(root)) {
             nodes.push(node);
@@ -578,8 +580,15 @@ function TreePath(root, node) {
         return nodes;
     }
 
+    this.setSeparator = function (_separator) {
+        if (typeof _separator !== "string") {
+            throw new Error("Parameter 1 must be of type String");
+        }
+        separator = _separator;
+    }
+
     this.toString = function () {
-        return nodes.join(" - ");
+        return nodes.join(separator);
     }
 
     if (root instanceof TreeNode && node instanceof TreeNode) {
