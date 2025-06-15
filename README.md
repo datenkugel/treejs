@@ -115,6 +115,10 @@ node.setOptions(options);            // Resets the options (object)
 node.changeOption(option, value);    // Changes one option (string, object)
 node.getOptions();                   // Returns the options
 
+node.searchNode(key, needle);        // Returns node by traversal search.
+                                     // Key can be either a property of the user object or an option name
+                                     // Needle is the value we're looking for in the user object or option
+
 node.isLeaf();                       // Returns true, if the node doesn't have any children, else false
 
 node.setExpanded(true|false);        // Sets the expanded-state of the node (if it shows its children) (boolean)
@@ -179,6 +183,11 @@ TreeUtil.collapseNode(node);         // Collapses the node and all it's children
 
 TreeUtil.getSelectedNodesForNode(n); // Returns all selected nodes inside of this node (and itself,
                                      // if it's selected) (TreeNode)
+TreeUtil.createTreeByFlatList        // allows to create a tree by following parameters:
+                                     // - list: array of objects. objects must have the toString() method
+                                     // - container: selector for HTML Element
+                                     // - optId: name of identifier-property of given objects
+                                     // - optParentId: name of parent-identifier-property of given objects
 ```
 
 ### TreeConfig
@@ -231,8 +240,9 @@ It is possible to attach an event to a TreeNode: ``node.on(event, callback);``
 | forceParent    | [boolean] | This node will be displayed as parent, even if it is empty     |
 
 ## Example
-### Code:
+### Code #1:
 ```javascript
+// build tree manually
 const root = new TreeNode("root");
   const n1 = new TreeNode("1");
     const n11 = new TreeNode("1.1");
@@ -258,6 +268,28 @@ n3.setEnabled(false);
 n32.addChild(n321);
 
 const view = new TreeView(root, "#container");
+```
+
+### Code #2:
+```javascript
+// build tree by flat list / database-friendly
+let list = [
+  {name:"root",id:"root",parentId:null,toString:function() {return this.name;}},
+  {name:"1",id:"1",parentId:"root",toString:function() {return this.name;}},
+  {name:"1.1",id:"11",parentId:"1",toString:function() {return this.name;}},
+  {name:"2",id:"2",parentId:"root",toString:function() {return this.name;}},
+  {name:"3",id:"3",parentId:"root",options:{enabled:false},toString:function() {return this.name;}},
+  {name:"3.1",id:"31",parentId:"3",toString:function() {return this.name;}},
+  {name:"3.2",id:"32",parentId:"3",toString:function() {return this.name;}},
+  {name:"3.2.1",id:"321",parentId:"32",toString:function() {return this.name;}},
+  {name:"3.3",id:"33",parentId:"3",toString:function() {return this.name;}}
+];
+
+const view = TreeUtil.createTreeByFlatList(list, "#container", "id", "parentId");
+
+// get access to a specific node
+const n2 = view.getRoot().searchNode("id","2");
+const n3 = view.getRoot().searchNode("enabled",false);
 ```
 
 ### Output:
