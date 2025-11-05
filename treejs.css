@@ -15,9 +15,7 @@
   --tj-padding-block: 0.25rem;
   --tj-padding-inline: 0.5rem;
   --tj-icon-spacing: 0.5rem;
-  
-  /* Icon sizing */
-  --tj-icon-size: 1rem;
+
 }
 
 /* Container reset and base styles */
@@ -112,7 +110,7 @@
 }
 
 /* High contrast mode support */
-@media (prefers-contrast: high) {
+@media (prefers-contrast: more) {
   :root {
     --tj-hover-bg: ButtonFace;
     --tj-selected-bg: Highlight;
