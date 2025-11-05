@@ -1,0 +1,29 @@
+{
+  "name": "treejs",
+  "version": "1.2.0",
+  "description": "TreeJS is a simple JavaScript library to display a TreeView like in the windows file browser.\r It implements partially the Java Swing TreeModel etc.",
+  "main": "tree.js",
+  "scripts": {
+    "build": "npm run build:js && npm run build:css",
+    "build:js": "terser tree.js --compress --mangle --output tree.min.js --source-map",
+    "build:css": "cleancss -o treejs.min.css treejs.css",
+    "minify": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datenkugel/treejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/datenkugel/treejs/issues"
+  },
+  "homepage": "https://github.com/datenkugel/treejs#readme",
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "terser": "^5.44.0"
+  }
+}
