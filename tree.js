@@ -541,10 +541,10 @@ class TreePath {
  * Utility methods for TreeJS
  */
 const TreeUtil = {
-    default_leaf_icon: "<span>📄</span>",
-    default_parent_icon: "<span>📁</span>",
-    default_open_icon: "<span>▼</span>",
-    default_close_icon: "<span>▶</span>",
+    default_leaf_icon: "📄",
+    default_parent_icon: "📁",
+    default_open_icon: "⯆",
+    default_close_icon: "⯈",
 
     isDOM(obj) {
         try {
