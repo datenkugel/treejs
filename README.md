@@ -84,7 +84,7 @@ tree.getOptions();                   // Returns the options
 
 tree.setSelectedNodes([n1,n2,...]);  // Sets the selected nodes in the tree
 tree.getSelectedNodes();             // Returns all selected nodes in the tree
-tree.reload();                       // Reloads/Renders the tree inside of the container
+tree.reload();                       // Reloads/Renders the tree inside the container
 ```
 
 ### TreeNode
