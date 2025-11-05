@@ -1,7 +1,7 @@
 {
   "name": "treejs",
   "version": "1.2.0",
-  "description": "TreeJS is a simple JavaScript library to display a TreeView like in the windows filebrowser.\r It implements partially the Java Swing TreeModel etc.",
+  "description": "TreeJS is a simple JavaScript library to display a TreeView like in the windows file browser.\r It implements partially the Java Swing TreeModel etc.",
   "main": "tree.js",
   "scripts": {
     "build": "npm run build:js && npm run build:css",
