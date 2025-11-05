@@ -146,7 +146,7 @@ class TreeView {
         span_desc.tj_node = node;
 
         if (!node.isEnabled()) {
-            li_outer.setAttribute("disabled", "");
+            span_desc.classList.add("tj_disabled");
             node.setExpanded(false);
             node.setSelected(false);
         }

@@ -59,25 +59,21 @@
   vertical-align: middle;
 }
 
-.tj_container li span.tj_mod_icon,
-.tj_container li span.tj_mod_icon * {
-  inline-size: var(--tj-icon-size);
-  block-size: var(--tj-icon-size);
-}
-
 /* Leaf node indentation */
 .tj_container li span.tj_description.tj_leaf {
   margin-inline-start: var(--tj-indent);
 }
 
 /* Disabled state */
-.tj_container li[disabled=""] {
+.tj_container span.tj_description.tj_disabled {
   color: var(--tj-disabled-color);
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
-.tj_container li[disabled=""]:hover span.tj_description {
-  cursor: default;
+.tj_container span.tj_description.tj_disabled:hover {
   background-color: transparent;
+  cursor: not-allowed;
 }
 
 /* Selected state */
