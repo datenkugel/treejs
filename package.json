@@ -1,6 +1,6 @@
 {
   "name": "treejs",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "TreeJS is a simple JavaScript library to display a TreeView like in the windows filebrowser.\r It implements partially the Java Swing TreeModel etc.",
   "main": "tree.js",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/datenkugel/treejs/issues"
